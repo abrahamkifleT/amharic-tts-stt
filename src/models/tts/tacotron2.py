@@ -293,6 +293,7 @@ class Tacotron2(nn.Module):
         self.max_decoder_steps = max_decoder_steps
         self.gate_threshold    = gate_threshold
         self.encoder_dim       = encoder_dim
+        self.decoder_dim       = decoder_dim
 
         # Encoder
         self.encoder = Tacotron2Encoder(
@@ -367,10 +368,10 @@ class Tacotron2(nn.Module):
         )
 
         # 3. Initialize decoder state
-        h1 = torch.zeros(B, 1024, device=tokens.device)
-        c1 = torch.zeros(B, 1024, device=tokens.device)
-        h2 = torch.zeros(B, 1024, device=tokens.device)
-        c2 = torch.zeros(B, 1024, device=tokens.device)
+        h1 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        c1 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        h2 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        c2 = torch.zeros(B, self.decoder_dim, device=tokens.device)
 
         prev_mel      = torch.zeros(B, self.n_mels, device=tokens.device)
         prev_attention = torch.zeros(B, N, device=tokens.device)
@@ -435,10 +436,10 @@ class Tacotron2(nn.Module):
             torch.arange(N, device=tokens.device).unsqueeze(0) >= token_lens.unsqueeze(1)
         )
 
-        h1 = torch.zeros(B, 1024, device=tokens.device)
-        c1 = torch.zeros(B, 1024, device=tokens.device)
-        h2 = torch.zeros(B, 1024, device=tokens.device)
-        c2 = torch.zeros(B, 1024, device=tokens.device)
+        h1 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        c1 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        h2 = torch.zeros(B, self.decoder_dim, device=tokens.device)
+        c2 = torch.zeros(B, self.decoder_dim, device=tokens.device)
 
         prev_mel       = torch.zeros(B, self.n_mels, device=tokens.device)
         prev_attention = torch.zeros(B, N, device=tokens.device)

@@ -12,6 +12,7 @@ import argparse
 from pathlib import Path
 import torch
 import torchaudio
+import soundfile as sf
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from src.models.tts.tacotron2 import Tacotron2
@@ -72,7 +73,8 @@ def synthesize_speech(
     # 5. Save WAV
     out_p = Path(output_path)
     out_p.parent.mkdir(parents=True, exist_ok=True)
-    torchaudio.save(str(out_p), audio_tensor.cpu(), 22050)
+    audio_np = audio_tensor.squeeze().cpu().numpy()
+    sf.write(str(out_p), audio_np, 22050)
     print(f"[TTS] Audio saved to: {out_p}")
     return str(out_p)
 
