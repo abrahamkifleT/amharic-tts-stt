@@ -1,0 +1,48 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+
+# Model checkpoints (large binary files)
+checkpoints/*.pt
+checkpoints/*.pth
+checkpoints/*.bin
+
+# Raw datasets (download separately)
+data/raw/
+data/processed/
+
+# Personal recordings
+data/recordings/*.wav
+data/recordings/*.mp3
+
+# Environment files
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# TensorBoard logs
+runs/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.egg-info/

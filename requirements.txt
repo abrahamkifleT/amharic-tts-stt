@@ -1,0 +1,53 @@
+# ============================================================
+# Amharic TTS & STT — Python Dependencies
+# ============================================================
+# Install with: pip install -r requirements.txt
+# Python 3.9+ required
+
+# Deep Learning
+torch>=2.1.0
+torchaudio>=2.1.0
+
+# Audio Processing
+librosa>=0.10.1
+soundfile>=0.12.1
+pydub>=0.25.1
+scipy>=1.11.0
+numpy>=1.24.0
+
+# HuggingFace ecosystem (for dataset loading)
+datasets>=2.14.0
+transformers>=4.35.0
+huggingface_hub>=0.17.0
+
+# Text Processing
+unidecode>=1.3.7
+regex>=2023.8.8
+num2words>=0.5.13
+
+# Training Utilities
+tensorboard>=2.14.0
+tqdm>=4.66.1
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Evaluation Metrics
+jiwer>=3.0.3
+
+# Web Application
+flask>=3.0.0
+flask-cors>=4.0.0
+flask-socketio>=5.3.6
+
+# Data & Config
+pandas>=2.0.0
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Audio file format support
+ffmpeg-python>=0.2.0
+
+# Notebooks (for Colab training)
+jupyter>=1.0.0
+ipywidgets>=8.1.0

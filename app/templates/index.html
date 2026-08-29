@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>የአማርኛ ንግግር እና ጽሑፍ AI — Amharic Speech AI Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Ethiopian Tricolor Top Accent Line -->
+  <div class="top-flag-bar"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-badge">አማ</div>
+        <div>
+          <h1>የአማርኛ ንግግር AI ስቱዲዮ</h1>
+          <p class="subtitle">Amharic Speech-to-Text &amp; Text-to-Speech (Trained from Scratch)</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-dot pulse"></span>
+        <span id="system-status-text">Checking System...</span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="stt">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        ንግግር ወደ ጽሑፍ (STT)
+      </button>
+      <button class="tab-btn" data-tab="tts">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        ጽሑፍ ወደ ንግግር (TTS)
+      </button>
+      <button class="tab-btn" data-tab="record">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+        የድምፅ ቀረጻ ስቱዲዮ (Record Data)
+      </button>
+      <button class="tab-btn" data-tab="docs">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        ስለ ሞዴሎቹ (Architecture)
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content-cards">
+      <!-- 1. STT Tab -->
+      <section id="tab-stt" class="tab-content active">
+        <div class="card glass-card">
+          <div class="card-header">
+            <h2>ድምጽን ወደ አማርኛ ጽሑፍ ቀይር (Speech to Text)</h2>
+            <span class="badge-tag">Conformer + CTC</span>
+          </div>
+          <p class="card-desc">የአማርኛ ንግግርዎን በማይክራፎን ይቅረጹ ወይም የድምፅ ፋይል ይጫኑ።</p>
+
+          <div class="audio-control-box">
+            <button id="mic-record-btn" class="record-button">
+              <div class="pulse-ring"></div>
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              <span id="record-label">ድምጽ መቅረጽ ጀምር</span>
+            </button>
+
+            <div class="divider-text">ወይም</div>
+
+            <div class="file-upload-wrapper">
+              <input type="file" id="audio-upload-input" accept="audio/*" class="file-input">
+              <label for="audio-upload-input" class="file-label">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                የድምፅ ፋይል ምረጥ (.wav, .mp3)
+              </label>
+              <span id="selected-file-name" class="selected-file"></span>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="result-header">
+              <label>የተገኘው የአማርኛ ጽሑፍ (Transcription):</label>
+              <button id="copy-transcript-btn" class="btn-sm">ቅዳ (Copy)</button>
+            </div>
+            <textarea id="stt-output" rows="4" placeholder="የተተረጎመው ጽሑፍ እዚህ ይታያል..." readonly></textarea>
+            <div class="meta-footer">
+              <span id="stt-latency">የፈጀው ጊዜ: --</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TTS Tab -->
+      <section id="tab-tts" class="tab-content">
+        <div class="card glass-card">
+          <div class="card-header">
+            <h2>የአማርኛ ጽሑፍን ወደ ድምጽ ቀይር (Text to Speech)</h2>
+            <span class="badge-tag">Tacotron2 + HiFi-GAN</span>
+          </div>
+          <p class="card-desc">የሚፈለገውን የአማርኛ ጽሑፍ ይጻፉ፤ ሞዴሉ ወደ ተፈጥሯዊ የድምፅ ሞገድ ይቀይረዋል።</p>
+
+          <div class="form-group">
+            <label for="tts-input">የአማርኛ ጽሑፍ ያስገቡ (Fidel Script):</label>
+            <textarea id="tts-input" rows="4" placeholder="ምሳሌ፡ ሰላም እንደምን ዋላችሁ? እንኳን ደህና መጣችሁ።"></textarea>
+          </div>
+
+          <div class="sample-phrases">
+            <span>ፈጣን ምሳሌዎች:</span>
+            <button class="phrase-chip" data-text="ሰላም ዓለም! እንኳን ወደ አማርኛ AI በደህና መጡ።">ሰላም ዓለም</button>
+            <button class="phrase-chip" data-text="ኢትዮጵያ ሀገሬ የጥበብ መፍለቂያ።">ኢትዮጵያ ሀገሬ</button>
+            <button class="phrase-chip" data-text="ይህ ሞዴል ከባዶ በፓይቶን የሰለጠነ ነው።">ከባዶ የሰለጠነ</button>
+          </div>
+
+          <button id="tts-generate-btn" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            ድምፅ ፍጠር (Synthesize Audio)
+          </button>
+
+          <div class="audio-player-wrapper" id="tts-player-wrapper" style="display: none;">
+            <h3>የተፈጠረ የድምፅ ውጤት:</h3>
+            <audio id="tts-audio-player" controls></audio>
+            <div class="meta-footer">
+              <span id="tts-latency">የፈጀው ጊዜ: --</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Recording Studio Tab -->
+      <section id="tab-record" class="tab-content">
+        <div class="card glass-card">
+          <div class="card-header">
+            <h2>የድምፅ መቅረጫ ስቱዲዮ (Record Training Data)</h2>
+            <span class="badge-tag">Dataset Augmentation</span>
+          </div>
+          <p class="card-desc">የራስዎን ድምጽ ከጽሑፍ ጋር በመቅረጽ ለሞዴል ማሰልጠኛ ዳታቤዝ ያበርክቱ።</p>
+
+          <div class="form-group">
+            <label for="record-text-prompt">የሚነበበው የአማርኛ ዐረፍተ-ነገር:</label>
+            <input type="text" id="record-text-prompt" value="አዲስ አበባ የኢትዮጵያ እና የአፍሪካ መዲና ናት።" />
+          </div>
+
+          <div class="studio-recorder">
+            <button id="studio-record-btn" class="record-button studio-btn">
+              <span id="studio-record-label">🎙️ ቀረጻ ጀምር (Record)</span>
+            </button>
+            <div id="studio-audio-preview" style="display:none; margin-top: 15px;">
+              <audio id="studio-audio-player" controls></audio>
+              <button id="studio-save-btn" class="btn-primary" style="margin-top: 10px;">💾 ዳታውን መዝግብ (Save to Dataset)</button>
+            </div>
+          </div>
+          <div id="studio-save-status" class="status-msg"></div>
+        </div>
+      </section>
+
+      <!-- 4. Architecture Docs Tab -->
+      <section id="tab-docs" class="tab-content">
+        <div class="card glass-card">
+          <div class="card-header">
+            <h2>የስርዓተ-ግንባታ ዝርዝር (System Architecture)</h2>
+            <span class="badge-tag">PyTorch Pipeline</span>
+          </div>
+          
+          <div class="arch-grid">
+            <div class="arch-item">
+              <h3>1. የድምፅ መተርጎሚያ (ASR)</h3>
+              <p><strong>Architecture:</strong> Conformer Encoder (6 Layers, 4 Heads) + CTC Decoder</p>
+              <p><strong>Features:</strong> 80-band Log-Mel Spectrograms, 16kHz, SpecAugment, Ethiopic Vocabulary Tokenizer</p>
+            </div>
+
+            <div class="arch-item">
+              <h3>2. ጽሑፍን ወደ ድምጽ ማመንጫ (TTS)</h3>
+              <p><strong>Architecture:</strong> Tacotron2 (BiLSTM Encoder + Location-Sensitive Attention + PostNet) + HiFi-GAN Vocoder</p>
+              <p><strong>Features:</strong> 22050Hz Audio, Grapheme-to-Phoneme (G2P), Multi-Scale Discriminators</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>የአማርኛ ንግግር AI ስርዓት • Built from scratch using PyTorch • Open-Source Research Project</p>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
