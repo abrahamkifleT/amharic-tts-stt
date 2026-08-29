@@ -9,6 +9,10 @@ Provides web interface and REST API for:
 """
 
 import os
+import io
+import sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 import sys
 import uuid
 import json
@@ -141,7 +145,7 @@ def save_recording():
 
 if __name__ == "__main__":
     print("\n" + "=" * 50)
-    print("🚀 Amharic Speech AI Studio Web Server")
-    print("🌐 Server starting at http://localhost:5000")
+    print("Amharic Speech AI Studio Web Server")
+    print("Server starting at http://localhost:5000")
     print("=" * 50 + "\n")
     app.run(host="0.0.0.0", port=5000, debug=True)
